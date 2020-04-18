@@ -1,4 +1,8 @@
 name: DynamicMotd
 main: com.github.gdlost.dynamicmotd.Main
 author: gdlost
+website: https://github.com/gdlost/DynamicMOTD
 version: "1.0"
+commands:
+  dynamicmotd:
+    usage: "Usage: /<command> [help]"
