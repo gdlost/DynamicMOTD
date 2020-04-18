@@ -5,7 +5,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 public class Timer {
-
+	/* Timer class
+	   The purpose of this, is make a countdown, until X seconds,
+	   then, the Timer, executes a TimerAction, and, the counter
+	   is set to its initial value.
+	 */
 	JavaPlugin plugin;
 	int seconds, seconds_copy;
 
@@ -23,7 +27,6 @@ public class Timer {
 		{
 			throw new TimerNullActionException("please call Timer.registerAction method before!");
 		}
-		plugin.getServer().broadcastMessage("Init timer");
 		thread = new BukkitRunnable() {
 
 			@Override
