@@ -1,0 +1,23 @@
+# The dark side.
+dummy: True
+dummyNumber: 999999
+
+# If ChangeAfterTime is True, then, the MOTD changes after "Time" seconds, else,
+# the MOTD changes everytime when a player sends a request (when is updating server list in game)
+# when ChangeAfterTime is False, Time has no effects.
+
+ChangeAfterTime: False
+Time: 0
+
+# If RandomMotd is True, then, a Random Motd will be choose "by" the plugin.
+# If it is False, Motd will be choose like in the list
+RandomMotd: False
+MotdList:
+  - '&aHave a nice day!'
+  - 'Players with Hacks will be &4&lbanned!'
+  - 'OMG! I am a &2Minecraft &eServer'
+  - '&6Notch &ris seeing you'
+  - 'In a nutshell, this plugin is the best!'
+  - 'With &1c&2o&3l&4o&5r&6s'
+  - '&aSquares &mand circles'
+  - 'This server uses &cDynamic&9MOTD by &egdlost &6[&fgithub.com/gdlost&6]'

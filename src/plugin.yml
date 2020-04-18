@@ -1,0 +1,4 @@
+name: DynamicMotd
+main: com.github.gdlost.dynamicmotd.Main
+author: gdlost
+version: "1.0"
