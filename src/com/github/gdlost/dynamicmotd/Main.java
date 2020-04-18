@@ -7,7 +7,12 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		saveDefaultConfig();
 		getLogger().info("Enabling DynamicMOTD");
+
+		/* ServerListPing event */
 		getServer().getPluginManager().registerEvents(new ServerList(this), this);
+
+		/* DynamicMotd main command */
+		getCommand("dynamicmotd").setExecutor(new Commands(this));
 	}
 
 	@Override
