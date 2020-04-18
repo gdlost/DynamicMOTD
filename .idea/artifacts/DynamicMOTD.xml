@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DynamicMOTD">
+    <output-path>$USER_HOME$/Documentos/Spigot/server/plugins</output-path>
+    <root id="archive" name="DynamicMOTD.jar">
+      <element id="module-output" name="DynamicMOTD" />
+    </root>
+  </artifact>
+</component>
