@@ -1,9 +1,10 @@
 package com.github.gdlost.dynamicmotd;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +27,6 @@ public class MotdList {
 
 	/* index of current motd */
 	private int index = 0;
-
 	/* length of list of motd */
 	private int motdLen = 0;
 
@@ -36,6 +36,8 @@ public class MotdList {
 	/* if motd list has no elements, then, the motd is the default of server. */
 	private String defaultMotd;
 
+	/* allocate size of indexes*/
+	private int maxTemporaryIndexes = 0;
 	/*--*/
 	public MotdList(JavaPlugin plugin, String defaultServerMotd) {
 		this.plugin = plugin;
@@ -56,6 +58,15 @@ public class MotdList {
 		/* Get configs */
 		list = plugin.getConfig().getStringList("MotdList");
 		motdLen = list.size();
+
+		/* number of maxTemporaryIndexes in config.yml */
+		maxTemporaryIndexes = plugin.getConfig().getInt("MaxTemporaryMOTD");
+
+		int[] __a = new int[1]; /* dummy arr, for init the for now motd intexes table */
+
+		forNowMotdTableIndex = 0;
+		forNowMotdIndexesTable = null;
+		forNowMotdIndexesTable = Arrays.copyOf(__a, maxTemporaryIndexes);
 
 		/* if list motd is reduced, and the last motd displayed
 		is in a higher index than the length of motd list, then,
@@ -104,11 +115,29 @@ public class MotdList {
 		plugin.saveConfig();
 	}
 
+
+	/*
+		if we want to know which are temporary
+		motds, we need to know its position in memory,
+		so, we store its position, in a table,
+		so, maxTemporaryIndexes also, will be a barrier
+		for avoid adding so many temporary motds
+	 */
+	int [] forNowMotdIndexesTable; /* initialized in execWhenReload */
+	int forNowMotdTableIndex;
+
 	/* Add new motd to the list, but without
 	saving to the config.yml file */
-	public void addMotdForNow(String motd) {
+	public boolean addMotdForNow(String motd) {
+		/* if temporary motds quantity are more than allowed */
+		if (forNowMotdTableIndex >= maxTemporaryIndexes) {
+			return false; /* failed */
+		}
 		list.add(motd);
 		motdLen = list.size();
+		forNowMotdIndexesTable[forNowMotdTableIndex] = motdLen - 1;
+		forNowMotdTableIndex++;
+		return true; /* success */
 	}
 
 	/* Check if index is equal to list length,
@@ -160,6 +189,29 @@ public class MotdList {
 
 	public int getMotdLen() {
 		return list.size();
+	}
+
+	/* Returns all MOTDs, including temporary and permanent stored in plugin.yml*/
+	public List<String> getCurrentMotdList() {
+		return list;
+	}
+	/* Returns all permanent MOTDs stored in plugin.yml*/
+	public List<String> getFileMotdList() {
+		return plugin.getConfig().getStringList("MotdList");
+	}
+
+	/*Returns all temporary MOTDs stored in memory, if list
+	* is empty, returns null */
+	public List<String> getForNowMotdList() {
+		/* no temporary motds */
+		if (forNowMotdTableIndex == 0)
+			return null;
+		List<String> temp = new ArrayList<String>();
+		for (int i = 0; i < forNowMotdTableIndex; i++) {
+			temp.add(getCurrentMotdList().get(forNowMotdIndexesTable[i]));
+		}
+		return temp;
+
 	}
 
 
