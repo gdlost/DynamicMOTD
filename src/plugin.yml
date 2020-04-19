@@ -6,3 +6,5 @@ version: "1.0"
 commands:
   dynamicmotd:
     usage: "Usage: /<command> [help]"
+    permission: dynamicmotd.global
+    permission-message: You not have have permission to use this command.
