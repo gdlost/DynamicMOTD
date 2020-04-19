@@ -1,5 +1,5 @@
 # The dark side.
-dummy: True
+dummy: False
 dummyNumber: 999999
 
 # If ChangeAfterTime is True, then, the MOTD changes after "Time" seconds, else,
@@ -12,6 +12,9 @@ Time: 0
 # If RandomMotd is True, then, a Random Motd will be choose "by" the plugin.
 # If it is False, Motd will be choose like in the list
 RandomMotd: False
+
+# This number allocates memory for store indexes of Temporary MOTDs, a higher number
+MaxTemporaryMOTD: 8
 MotdList:
   - '&aHave a nice day!'
   - 'Players with Hacks will be &4&lbanned!'
